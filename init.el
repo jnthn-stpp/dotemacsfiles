@@ -16,7 +16,7 @@
     ("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
  '(package-selected-packages
    (quote
-    (solarized evil-indent-textobject evil-leader evil-mode use-package evil-visual-mark-mode))))
+    (evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -58,3 +58,5 @@
 
 (set-face-attribute 'default t :font "Droid Sans Mono 14")
 (set-face-attribute 'default nil :font "Droid Sans Mono 14")
+
+(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
