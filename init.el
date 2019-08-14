@@ -16,7 +16,7 @@
     ("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
  '(org-agenda-files
    (quote
-    ("~/writing.git/suter/suter.org" "~/writing.git/adulting/adult.org")))
+    ("~/writing.git/org/")))
  '(package-selected-packages
    (quote
     (org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
@@ -82,8 +82,10 @@
 
 ;;org-mode keybindings
 (global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
 (setq org-agenda-window-setup 'current-window)
 (setq org-agenda-todo-list-sublevels nil)
+(setq org-refile-targets '((org-agenda-files :maxlevel . 2)))
 
 (defun my/org-mode-hook ()
 "Stop the org-level headers from increasing in height relative to the other text."
