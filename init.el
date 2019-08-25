@@ -84,8 +84,10 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (setq org-agenda-window-setup 'current-window)
+(setq org-agenda-start-on-weekday nil)
 (setq org-agenda-todo-list-sublevels nil)
 (setq org-refile-targets '((org-agenda-files :maxlevel . 2)))
+(setq org-default-notes-file "~/writing.git/org/random.org")
 
 (defun my/org-mode-hook ()
 "Stop the org-level headers from increasing in height relative to the other text."
@@ -98,6 +100,14 @@
 
 (add-hook 'org-mode-hook 'my/org-mode-hook) 
 
+(setq org-capture-templates
+      '(("t" "Basic Todo Entry" entry (file+headline org-default-notes-file "Tasks")
+	 "* TODO %^{Title}\n %? %i\n")
+	("a" "Basic Assignment" entry (file+headline org-default-notes-file "Unorganized Assignments")
+	 "* TODO %^{Title} ([/])\nDEADLINE:%^{Deadline}T\n\nIntermediate Tasks\n- [ ] %?")
+	("m" "Basic Meeting" entry (file+headline org-default-notes-file "Random Meetings")
+	 "* TODO %^{Title}\nSCHEDULED: %^{Start Time}T\nEND TIME: %^{End Time}U\nLocation: %^{Location}\n\nDescription:\n%?")))
+
 ;;Some basic visual stuff
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
@@ -107,7 +117,6 @@
   :ensure t
   :config
   (load-theme 'solarized-dark t))
-
 (set-face-attribute 'default t :font "Droid Sans Mono 14")
 (set-face-attribute 'default nil :font "Droid Sans Mono 14")
 
