@@ -1,5 +1,6 @@
 (require 'package)
 
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
@@ -14,12 +15,10 @@
  '(custom-safe-themes
    (quote
     ("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
- '(org-agenda-files
-   (quote
-    ("~/writing.git/org/")))
+ '(org-agenda-files (quote ("~/Dropbox/org/")))
  '(package-selected-packages
    (quote
-    (org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
+    (auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -131,3 +130,21 @@
                            '((vertical-scroll-bars . nil)
                              (horizontal-scroll-bars . nil))))
 (add-hook 'after-make-frame-functions 'my/disable-scroll-bars)
+
+(add-to-list 'default-frame-alist '(font . "Droid Sans Mono 14"))
+(add-to-list 'default-frame-alist '(height . 30))
+(add-to-list 'default-frame-alist '(width . 80))
+
+(use-package auctex
+  :defer t
+  :ensure auctex 
+  :config
+  (setq LaTeX-item-indent 0)
+)
+
+(setq font-latex-fontify-script nil)
+(setq font-latex-fontify-sectioning 'color)
+(custom-set-faces
+'(font-latex-slide-title-face ((t (:inherit font-lock-type-face)))))
+
+(add-hook 'doc-view-mode-hook 'auto-revert-mode)
