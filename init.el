@@ -98,6 +98,7 @@
 (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
 
 (add-hook 'org-mode-hook 'my/org-mode-hook) 
+(add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
 (setq org-capture-templates
       '(("t" "Basic Todo Entry" entry (file+headline org-default-notes-file "Tasks")
