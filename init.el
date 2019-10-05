@@ -18,13 +18,13 @@
  '(org-agenda-files (quote ("~/Dropbox/org/")))
  '(package-selected-packages
    (quote
-    (auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
+    (yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(font-latex-slide-title-face ((t (:inherit font-lock-type-face)))))
 
 ;;package manager - pretty important
 (unless (package-installed-p 'use-package)
@@ -86,7 +86,7 @@
 (setq org-agenda-start-on-weekday nil)
 (setq org-agenda-todo-list-sublevels nil)
 (setq org-refile-targets '((org-agenda-files :maxlevel . 2)))
-(setq org-default-notes-file "~/writing.git/org/random.org")
+(setq org-default-notes-file "~/Dropbox/org/random.org")
 
 (defun my/org-mode-hook ()
 "Stop the org-level headers from increasing in height relative to the other text."
@@ -141,11 +141,24 @@
   :ensure auctex 
   :config
   (setq LaTeX-item-indent 0)
+  (setq-default TeX-master nil)
 )
 
-(setq font-latex-fontify-script nil)
+(use-package yasnippet
+  :ensure t
+  :config
+  (setq yas-triggers-in-field t)
+  (yas-reload-all)
+  (yas-recompile-all)
+  (add-hook 'text-mode #'yas-minor-mode)
+  (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
+
+)
+
+
 (setq font-latex-fontify-sectioning 'color)
-(custom-set-faces
-'(font-latex-slide-title-face ((t (:inherit font-lock-type-face)))))
+(setq font-latex-fontify-script nil)
+(setq font-tex-fontify-script nil)
+
 
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)

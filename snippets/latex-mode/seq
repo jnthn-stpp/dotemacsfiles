@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: seq
+# key: seq
+# --
+\\{${1:x_n}\\}_{${2:n=\ell}}^{${3:\infty}}$0

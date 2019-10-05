@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: sbeg
+# key: sbeg
+# --
+
+\begin{${1:environ}}
+	$2
+\end{$1}
+$0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: sub
+# key: dt
+# --
+
+$1_{$2} $0

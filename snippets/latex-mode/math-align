@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: math-align
+# key: ml
+# --
+\begin{align*}
+	$0
+\end{align*}
