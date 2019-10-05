@@ -15,4 +15,4 @@
 		       ("beg" "\\begin{${1:environment}}\n	$0\n\\end{$1}" "begin" nil nil nil "/home/jnthn/.emacs.d/snippets/latex-mode/begin" nil nil)))
 
 
-;;; Do not edit! File generated at Sat Oct  5 14:37:59 2019
+;;; Do not edit! File generated at Sat Oct  5 15:07:12 2019
