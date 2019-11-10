@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: inline-begin
+# key: ibeg
+# --
+\begin{${1:environment}} $2 \end{$1} $0
