@@ -87,7 +87,15 @@
 (setq org-agenda-window-setup 'current-window)
 (setq org-agenda-start-on-weekday nil)
 (setq org-agenda-todo-list-sublevels nil)
-(setq org-refile-targets '((org-agenda-files :maxlevel . 2)))
+(setq org-refile-targets '((nil :maxlevel . 9)
+			   (org-agenda-files :maxlevel . 3)
+			   ("~/writing.git/records/analysis.org" :maxlevel . 3)
+			   ("~/writing.git/records/algebra.org" :maxlevel . 3)
+			   ("~/writing.git/records/circuits.org" :maxlevel . 3)
+			   ("~/writing.git/records/quantum.org" :maxlevel . 3)
+			   ("~/writing.git/records/em.org" :maxlevel . 3)
+			   ("~/writing.git/records/colloquium.org" :maxlevel . 3)
+      ))
 (setq org-default-notes-file "~/Dropbox/org/random.org")
 
 (defun my/org-mode-hook ()
@@ -106,7 +114,7 @@
       '(("t" "Basic Todo Entry" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %^{Title}\n %? %i\n")
 	("a" "Basic Assignment" entry (file+headline org-default-notes-file "Unorganized Assignments")
-	 "* TODO %^{Title} ([/])\nDEADLINE:%^{Deadline}T\n\nIntermediate Tasks\n- [ ] %?")
+	 "* TODO %^{Title} ([/]) %^{Tags}\nDEADLINE:%^{Deadline}T\n\nIntermediate Tasks\n- [ ] %?")
 	("m" "Basic Meeting" entry (file+headline org-default-notes-file "Random Meetings")
 	 "* TODO %^{Title}\nSCHEDULED: %^{Start Time}T\nEND TIME: %^{End Time}U\nLocation: %^{Location}\n\nDescription:\n%?")))
 
@@ -154,7 +162,6 @@
   (yas-recompile-all)
   (add-hook 'text-mode #'yas-minor-mode)
   (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
-
 )
 
 
