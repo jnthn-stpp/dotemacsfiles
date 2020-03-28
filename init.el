@@ -113,10 +113,10 @@
 (setq org-capture-templates
       '(("t" "Basic Todo Entry" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %^{Title}\n %? %i\n")
-	("a" "Basic Assignment" entry (file+headline org-default-notes-file "Unorganized Assignments")
+	("a" "Basic Assignment" entry (file+headline org-default-notes-file "Inbox")
 	 "* TODO %^{Title} ([/]) %^{Tags}\nDEADLINE:%^{Deadline}T\n\nIntermediate Tasks\n- [ ] %?")
 	("m" "Basic Meeting" entry (file+headline org-default-notes-file "Random Meetings")
-	 "* TODO %^{Title}\nSCHEDULED: %^{Start Time}T\nEND TIME: %^{End Time}U\nLocation: %^{Location}\n\nDescription:\n%?")))
+	 "* TODO %^{Title}\nSTART TIME: %^{Start Time}T\nEND TIME: %^{End Time}U\nLocation: %^{Location}\n\nDescription:\n%?")))
 
 ;;Some basic visual stuff
 (menu-bar-mode -1)
