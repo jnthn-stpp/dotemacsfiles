@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
 # name: math-text
-# key: mt
+# key: mt 
 # --
-\\text{$1}$0
+\\text{ $1 }$0

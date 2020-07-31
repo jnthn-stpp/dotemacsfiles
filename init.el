@@ -21,7 +21,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/")))
  '(package-selected-packages
    (quote
-    (yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
+    (ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -56,6 +56,16 @@
   (use-package evil-indent-textobject
     :ensure t))
 
+(use-package org
+  :ensure t
+  :config
+  (require 'org-agenda)
+  (require 'org-capture)
+  (require 'ob-async)
+
+  (setq org-startup-indented t)
+  (org-reload))
+
 (use-package evil-org
   :ensure t
   :after org
@@ -73,7 +83,7 @@
   :ensure t
   :config
   (windmove-default-keybindings)
-  (setq windmove-wrap-around t))
+  (setq windmove-wrap-around nil))
 
 ;;org-mode conflicts with windmove
 (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -110,13 +120,29 @@
 (add-hook 'org-mode-hook 'my/org-mode-hook) 
 (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
+(defun my/capture-seldon-file-name ()
+  (interactive)
+  (let ((name (read-string "Filename: ")))
+    (expand-file-name (format "%s-%s.org"
+			      name
+			      (format-time-string "%Y-%m-%d"))
+		      "~/Dropbox/seldon/")))
+
 (setq org-capture-templates
       '(("t" "Basic Todo Entry" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %^{Title}\n %? %i\n")
 	("a" "Basic Assignment" entry (file+headline org-default-notes-file "Inbox")
-	 "* TODO %^{Title} ([/]) %^{Tags}\nDEADLINE:%^{Deadline}T\n\nIntermediate Tasks\n- [ ] %?")
-	("m" "Basic Meeting" entry (file+headline org-default-notes-file "Random Meetings")
-	 "* TODO %^{Title}\nSTART TIME: %^{Start Time}T\nEND TIME: %^{End Time}U\nLocation: %^{Location}\n\nDescription:\n%?")))
+	 "* TODO %^{Title} ([/])\nDEADLINE:%^{Deadline}T\n\nIntermediate Tasks\n- [ ] %?")
+	("c" "Calendar Entry" entry (file+headline org-default-notes-file "Random Meetings")
+	 "* %^{Title}\nSTART TIME: %^{Start Time}T\nEND TIME: %^{End Time}U\nLocation: %^{Location}\n\n%?")
+	("z" "Seldon Entry" entry (file my/capture-seldon-file-name) "* %^{Title}\n")))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (shell . t)
+   (latex . t)
+   (python . t)))
 
 ;;Some basic visual stuff
 (menu-bar-mode -1)
