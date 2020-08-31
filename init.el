@@ -21,7 +21,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/")))
  '(package-selected-packages
    (quote
-    (ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
+    (yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -61,7 +61,6 @@
   :config
   (require 'org-agenda)
   (require 'org-capture)
-  (require 'ob-async)
 
   (setq org-startup-indented t)
   (org-reload))
