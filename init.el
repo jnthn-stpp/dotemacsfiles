@@ -18,7 +18,7 @@
  '(custom-safe-themes
    (quote
     ("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
- '(org-agenda-files (quote ("~/Dropbox/org/")))
+ '(org-agenda-files (quote ("~/Dropbox/org/agenda/")))
  '(package-selected-packages
    (quote
     (yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
@@ -96,16 +96,19 @@
 (setq org-agenda-window-setup 'current-window)
 (setq org-agenda-start-on-weekday nil)
 (setq org-agenda-todo-list-sublevels nil)
-(setq org-refile-targets '((nil :maxlevel . 9)
-			   (org-agenda-files :maxlevel . 3)
-			   ("~/writing.git/records/analysis.org" :maxlevel . 3)
-			   ("~/writing.git/records/algebra.org" :maxlevel . 3)
-			   ("~/writing.git/records/circuits.org" :maxlevel . 3)
-			   ("~/writing.git/records/quantum.org" :maxlevel . 3)
-			   ("~/writing.git/records/em.org" :maxlevel . 3)
-			   ("~/writing.git/records/colloquium.org" :maxlevel . 3)
+(setq org-refile-targets '((nil :maxlevel . 2)
+			   (org-agenda-files :maxlevel . 2)
       ))
-(setq org-default-notes-file "~/Dropbox/org/random.org")
+(setq org-default-notes-file "~/Dropbox/org/agenda/tasks.org")
+
+(setq org-agenda-custom-commands
+      '(("c" . "My Custom Agendas")
+        ("cu" "Unscheduled TODO"
+         ((todo ""
+                ((org-agenda-overriding-header "\nUnscheduled TODO")
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled)))))
+         nil
+         nil)))
 
 (defun my/org-mode-hook ()
 "Stop the org-level headers from increasing in height relative to the other text."
@@ -128,10 +131,8 @@
 		      "~/Dropbox/seldon/")))
 
 (setq org-capture-templates
-      '(("t" "Basic Todo Entry" entry (file+headline org-default-notes-file "Tasks")
+      '(("t" "Todo Entry" entry (file+headline org-default-notes-file "Unorganized")
 	 "* TODO %^{Title}\n %? %i\n")
-	("a" "Basic Assignment" entry (file+headline org-default-notes-file "Inbox")
-	 "* TODO %^{Title} ([/])\nDEADLINE:%^{Deadline}T\n\nIntermediate Tasks\n- [ ] %?")
 	("c" "Calendar Entry" entry (file+headline org-default-notes-file "Random Meetings")
 	 "* %^{Title}\nSTART TIME: %^{Start Time}T\nEND TIME: %^{End Time}U\nLocation: %^{Location}\n\n%?")
 	("z" "Seldon Entry" entry (file my/capture-seldon-file-name) "* %^{Title}\n")))
