@@ -21,7 +21,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/agenda/")))
  '(package-selected-packages
    (quote
-    (yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
+    (haskell-mode ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -135,7 +135,7 @@
 	 "* TODO %^{Title}\n %? %i\n")
 	("c" "Calendar Entry" entry (file+headline org-default-notes-file "Random Meetings")
 	 "* %^{Title}\nSTART TIME: %^{Start Time}T\nEND TIME: %^{End Time}U\nLocation: %^{Location}\n\n%?")
-	("z" "Seldon Entry" entry (file my/capture-seldon-file-name) "* %^{Title}\n")))
+	("z" "Seldon Entry" entry (file my/capture-seldon-file-name) "* %^{Title}\n#+STARTUP: showall\n#+STARTUP latexpreview\n#+STARTUP inlineimages")))
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -188,8 +188,10 @@
   (yas-recompile-all)
   (add-hook 'text-mode #'yas-minor-mode)
   (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
+  (add-hook 'org-mode-hook 'yas-minor-mode)
 )
 
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
 (setq font-latex-fontify-sectioning 'color)
 (setq font-latex-fontify-script nil)
