@@ -191,7 +191,11 @@
   (add-hook 'org-mode-hook 'yas-minor-mode)
 )
 
+(setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+(add-to-list 'org-latex-packages-alist '("" "siunitx" t))
+(add-to-list 'org-latex-packages-alist '("" "physics" t))
+
 
 (setq font-latex-fontify-sectioning 'color)
 (setq font-latex-fontify-script nil)
