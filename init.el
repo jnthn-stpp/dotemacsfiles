@@ -16,12 +16,32 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   (quote
-    ("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
- '(org-agenda-files (quote ("~/Dropbox/org/agenda/")))
+   '("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default))
+ '(deft-strip-title-regexp
+    "\\(?:^%+\\|^#\\+STARTUPFILE: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
+ '(org-agenda-files '("~/Dropbox/org/agenda/"))
+ '(org-format-latex-header
+   "\\documentclass{article}
+\\usepackage[usenames]{color}
+[PACKAGES]
+[DEFAULT-PACKAGES]
+\\pagestyle{empty}             % do not remove
+% The settings below are copied from fullpage.sty
+\\setlength{\\textwidth}{\\paperwidth}
+\\addtolength{\\textwidth}{-3cm}
+\\setlength{\\oddsidemargin}{1.5cm}
+\\addtolength{\\oddsidemargin}{-2.54cm}
+\\setlength{\\evensidemargin}{\\oddsidemargin}
+\\setlength{\\textheight}{\\paperheight}
+\\addtolength{\\textheight}{-\\headheight}
+\\addtolength{\\textheight}{-\\headsep}
+\\addtolength{\\textheight}{-\\footskip}
+\\addtolength{\\textheight}{-3cm}
+\\setlength{\\topmargin}{1.5cm}
+\\addtolength{\\topmargin}{-2.54cm}  
+\\input{/home/jnthn/Dropbox/seldon/macros.tex}  ")
  '(package-selected-packages
-   (quote
-    (haskell-mode ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode))))
+   '(deft haskell-mode ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -75,6 +95,13 @@
 	      (evil-org-set-key-theme)))
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
+
+(use-package deft
+  :ensure t
+  :config
+  (setq deft-extensions '("txt" "org"))
+  (setq deft-directory "~/Dropbox/seldon")
+  )
 	    
 
 ;;Navigating splits easier
@@ -191,11 +218,10 @@
   (add-hook 'org-mode-hook 'yas-minor-mode)
 )
 
-(setq org-latex-create-formula-image-program 'imagemagick)
+;(setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 (add-to-list 'org-latex-packages-alist '("" "siunitx" t))
 (add-to-list 'org-latex-packages-alist '("" "physics" t))
-
 
 (setq font-latex-fontify-sectioning 'color)
 (setq font-latex-fontify-script nil)
