@@ -120,6 +120,8 @@
 ;;org-mode keybindings
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c C-l") 'org-insert-link)
 (setq org-agenda-window-setup 'current-window)
 (setq org-agenda-start-on-weekday nil)
 (setq org-agenda-todo-list-sublevels nil)
@@ -218,7 +220,7 @@
   (add-hook 'org-mode-hook 'yas-minor-mode)
 )
 
-;(setq org-latex-create-formula-image-program 'imagemagick)
+(setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 (add-to-list 'org-latex-packages-alist '("" "siunitx" t))
 (add-to-list 'org-latex-packages-alist '("" "physics" t))
@@ -226,6 +228,5 @@
 (setq font-latex-fontify-sectioning 'color)
 (setq font-latex-fontify-script nil)
 (setq font-tex-fontify-script nil)
-
 
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
