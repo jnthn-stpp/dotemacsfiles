@@ -19,7 +19,6 @@
    '("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default))
  '(deft-strip-title-regexp
     "\\(?:^%+\\|^#\\+STARTUPFILE: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
- '(org-agenda-files '("~/Dropbox/org/agenda/"))
  '(org-format-latex-header
    "\\documentclass{article}
 \\usepackage[usenames]{color}
@@ -41,7 +40,7 @@
 \\addtolength{\\topmargin}{-2.54cm}  
 \\input{/home/jnthn/Dropbox/seldon/macros.tex}  ")
  '(package-selected-packages
-   '(deft haskell-mode ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode)))
+   '(pdf-tools org-noter deft haskell-mode ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -60,21 +59,30 @@
 (setq evil-want-keybinding nil)
 (use-package evil
   :ensure t
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  ;(add-to-list 'evil-motion-state-modes 'doc-view-mode)
+  ;(delete 'doc-view-mode evil-normal-state-modes)
   :config
-  (evil-mode t)
+  (evil-mode t))
 
-  (use-package evil-collection
-    :ensure t
-    :config
-    (evil-collection-init 'doc-view))
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (add-to-list 'evil-collection-mode-list 'doc-view-mode)
+  :init
+  (evil-collection-init))
 
-  (use-package evil-leader
-    :ensure t
-    :config
-    (global-evil-leader-mode))
+  ;(use-package evil-leader
+  ;  :ensure t
+  ;  :config
+  ;  (global-evil-leader-mode))
 
-  (use-package evil-indent-textobject
-    :ensure t))
+(use-package evil-indent-textobject
+  :after evil
+  :ensure t)
 
 (use-package org
   :ensure t
@@ -83,6 +91,7 @@
   (require 'org-capture)
 
   (setq org-startup-indented t)
+  (setq org-list-allow-alphabetical t)
   (org-reload))
 
 (use-package evil-org
@@ -96,13 +105,26 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
+(use-package org-noter
+  :ensure t
+  :after org
+  :config
+  ;(add-to-list 'evil-overriding-maps '(org-noter-doc-mode))
+
+  (setq org-noter-insert-note-no-questions t)
+  (setq org-noter-insert-note-no-questions t)
+  (setq org-noter-notes-window-location 'other-frame)
+  (setq org-noter-kill-frame-at-session-end nil)
+  (setq org-noter-always-create-frame nil))
+
+(defun my/no-op (&rest args))
+(advice-add 'org-noter--set-notes-scroll :override 'my/no-op)
+
 (use-package deft
   :ensure t
   :config
   (setq deft-extensions '("txt" "org"))
-  (setq deft-directory "~/Dropbox/seldon")
-  )
-	    
+  (setq deft-directory "~/Dropbox/seldon"))
 
 ;;Navigating splits easier
 (use-package windmove
@@ -125,10 +147,11 @@
 (setq org-agenda-window-setup 'current-window)
 (setq org-agenda-start-on-weekday nil)
 (setq org-agenda-todo-list-sublevels nil)
-(setq org-refile-targets '((nil :maxlevel . 2)
-			   (org-agenda-files :maxlevel . 2)
+(setq org-refile-targets '((nil :maxlevel . 4)
+			   (org-agenda-files :maxlevel . 4)
       ))
-(setq org-default-notes-file "~/Dropbox/org/agenda/tasks.org")
+(setq org-agenda-files (directory-files-recursively "~/Dropbox/notes/" "\\.org$"))
+(setq org-default-notes-file "~/Dropbox/notes/tasks.org")
 
 (setq org-agenda-custom-commands
       '(("c" . "My Custom Agendas")
@@ -209,6 +232,14 @@
   (setq-default TeX-master nil)
 )
 
+(use-package pdf-tools
+  :ensure t
+  :after evil
+  :config
+  (evil-set-initial-state 'pdf-view-mode 'normal)
+  (pdf-tools-install)
+  (setq-default pdf-view-display-size 'fit-page))
+
 (use-package yasnippet
   :ensure t
   :config
@@ -220,7 +251,7 @@
   (add-hook 'org-mode-hook 'yas-minor-mode)
 )
 
-(setq org-latex-create-formula-image-program 'imagemagick)
+;(setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 (add-to-list 'org-latex-packages-alist '("" "siunitx" t))
 (add-to-list 'org-latex-packages-alist '("" "physics" t))
