@@ -19,6 +19,8 @@
    '("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default))
  '(deft-strip-title-regexp
     "\\(?:^%+\\|^#\\+STARTUPFILE: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
+ '(org-agenda-files
+   '("~/Dropbox/notes/aqp/aqp.org" "~/Dropbox/notes/kahniashvili/kahniashvili.org" "~/Dropbox/notes/malt/malt.org" "~/Dropbox/notes/mech/mech.org" "~/Dropbox/notes/prob/prob.org" "~/Dropbox/notes/survey/survey.org" "~/Dropbox/notes/thermal/thermal.org" "~/Dropbox/notes/tasks.org"))
  '(org-format-latex-header
    "\\documentclass{article}
 \\usepackage[usenames]{color}
@@ -40,7 +42,7 @@
 \\addtolength{\\topmargin}{-2.54cm}  
 \\input{/home/jnthn/Dropbox/seldon/macros.tex}  ")
  '(package-selected-packages
-   '(pdf-tools org-noter deft haskell-mode ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode)))
+   '(scroll-restore good-scroll pdf-tools org-noter deft haskell-mode ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -162,6 +164,12 @@
          nil
          nil)))
 
+(pixel-scroll-mode)
+(setq pixel-dead-time 0)
+(setq pixel-resolution-fine-flag t)
+(setq mouse-wheel-scroll-amount '(2))
+(setq mouse-wheel-progressive-speed nil)
+
 (defun my/org-mode-hook ()
 "Stop the org-level headers from increasing in height relative to the other text."
 (dolist (face '(org-level-1
@@ -169,6 +177,7 @@
 		org-level-3
 		org-level-4
 		org-level-5))
+(setq org-image-actual-width (/ (display-pixel-width) 4))
 (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
 
 (add-hook 'org-mode-hook 'my/org-mode-hook) 
@@ -255,6 +264,7 @@
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 (add-to-list 'org-latex-packages-alist '("" "siunitx" t))
 (add-to-list 'org-latex-packages-alist '("" "physics" t))
+(add-to-list 'org-latex-packages-alist '("" "mathrsfs" t))
 
 (setq font-latex-fontify-sectioning 'color)
 (setq font-latex-fontify-script nil)

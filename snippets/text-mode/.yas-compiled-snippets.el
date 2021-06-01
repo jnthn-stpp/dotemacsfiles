@@ -1,2 +1,2 @@
 ;;; Compiled snippets and support files for `text-mode'
-;;; Do not edit! File generated at Sat Oct  5 15:07:12 2019
+;;; Do not edit! File generated at Tue Jun  1 11:47:48 2021
