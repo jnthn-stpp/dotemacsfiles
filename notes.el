@@ -19,7 +19,8 @@
     \\addtolength{\\topmargin}{-2.54cm}  
     \\input{/home/jnthn/Dropbox/seldon/macros.tex}  ")
 
-(add-to-list 'org-latex-classes
+(with-eval-after-load 'ox-latex
+ (add-to-list 'org-latex-classes
       '("jdsnotes"
          "\\documentclass{jdsnotes}
          [NO-DEFAULT-PACKAGES]
@@ -29,4 +30,4 @@
          ("\\subsection{%s}" . "\\subsection*{%s}")
          ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
          ("\\paragraph{%s}" . "\\paragraph*{%s}")
-         ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+         ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
