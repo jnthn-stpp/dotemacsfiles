@@ -16,31 +16,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default))
+   '("c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default))
  '(deft-strip-title-regexp
     "\\(?:^%+\\|^#\\+STARTUPFILE: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
- '(org-format-latex-header
-   "\\documentclass{article}
-\\usepackage[usenames]{color}
-[PACKAGES]
-[DEFAULT-PACKAGES]
-\\pagestyle{empty}             % do not remove
-% The settings below are copied from fullpage.sty
-\\setlength{\\textwidth}{\\paperwidth}
-\\addtolength{\\textwidth}{-3cm}
-\\setlength{\\oddsidemargin}{1.5cm}
-\\addtolength{\\oddsidemargin}{-2.54cm}
-\\setlength{\\evensidemargin}{\\oddsidemargin}
-\\setlength{\\textheight}{\\paperheight}
-\\addtolength{\\textheight}{-\\headheight}
-\\addtolength{\\textheight}{-\\headsep}
-\\addtolength{\\textheight}{-\\footskip}
-\\addtolength{\\textheight}{-3cm}
-\\setlength{\\topmargin}{1.5cm}
-\\addtolength{\\topmargin}{-2.54cm}  
-\\input{/home/jnthn/Dropbox/seldon/macros.tex}  ")
  '(package-selected-packages
-   '(pdf-tools org-noter deft haskell-mode ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode)))
+   '(org-bullets good-scroll pdf-tools org-noter deft haskell-mode ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -94,6 +74,10 @@
   (setq org-list-allow-alphabetical t)
   (org-reload))
 
+(use-package org-bullets
+  :ensure t
+  :hook (org-mode . org-bullets-mode))
+
 (use-package evil-org
   :ensure t
   :after org
@@ -113,7 +97,8 @@
 
   (setq org-noter-insert-note-no-questions t)
   (setq org-noter-insert-note-no-questions t)
-  (setq org-noter-notes-window-location 'other-frame)
+  (if (equal system-name "fermi")
+      (setq org-noter-notes-window-location 'other-frame))
   (setq org-noter-kill-frame-at-session-end nil)
   (setq org-noter-always-create-frame nil))
 
@@ -151,7 +136,7 @@
 			   (org-agenda-files :maxlevel . 4)
       ))
 (setq org-agenda-files (directory-files-recursively "~/Dropbox/notes/" "\\.org$"))
-(setq org-default-notes-file "~/Dropbox/notes/tasks.org")
+(setq org-default-notes-file "~/Dropbox/notes/bullet.org")
 
 (setq org-agenda-custom-commands
       '(("c" . "My Custom Agendas")
@@ -169,6 +154,7 @@
 		org-level-3
 		org-level-4
 		org-level-5))
+(setq org-image-actual-width (/ (display-pixel-width) 3))
 (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
 
 (add-hook 'org-mode-hook 'my/org-mode-hook) 
@@ -251,7 +237,10 @@
   (add-hook 'org-mode-hook 'yas-minor-mode)
 )
 
-;(setq org-latex-create-formula-image-program 'imagemagick)
+(if (equal system-name "landau") 
+    (setq org-latex-create-formula-image-program 'imagemagick)
+    (nil))
+
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 (add-to-list 'org-latex-packages-alist '("" "siunitx" t))
 (add-to-list 'org-latex-packages-alist '("" "physics" t))
@@ -261,3 +250,5 @@
 (setq font-tex-fontify-script nil)
 
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+
+(load "/home/jnthn/.emacs.d/notes.el")
