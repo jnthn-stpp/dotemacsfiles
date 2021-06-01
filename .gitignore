@@ -1,4 +1,6 @@
 *
 !.gitignore
 !init.el
+!notes.el
+!snippets/
 !snippets/*

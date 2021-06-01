@@ -21,6 +21,31 @@
     "\\(?:^%+\\|^#\\+STARTUPFILE: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
  '(package-selected-packages
    '(org-bullets good-scroll pdf-tools org-noter deft haskell-mode ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode)))
+ '(org-agenda-files
+   '("~/Dropbox/notes/aqp/aqp.org" "~/Dropbox/notes/kahniashvili/kahniashvili.org" "~/Dropbox/notes/malt/malt.org" "~/Dropbox/notes/mech/mech.org" "~/Dropbox/notes/prob/prob.org" "~/Dropbox/notes/survey/survey.org" "~/Dropbox/notes/thermal/thermal.org" "~/Dropbox/notes/tasks.org"))
+ '(org-format-latex-header
+   "\\documentclass{article}
+\\usepackage[usenames]{color}
+[PACKAGES]
+[DEFAULT-PACKAGES]
+\\pagestyle{empty}             % do not remove
+% The settings below are copied from fullpage.sty
+\\setlength{\\textwidth}{\\paperwidth}
+\\addtolength{\\textwidth}{-3cm}
+\\setlength{\\oddsidemargin}{1.5cm}
+\\addtolength{\\oddsidemargin}{-2.54cm}
+\\setlength{\\evensidemargin}{\\oddsidemargin}
+\\setlength{\\textheight}{\\paperheight}
+\\addtolength{\\textheight}{-\\headheight}
+\\addtolength{\\textheight}{-\\headsep}
+\\addtolength{\\textheight}{-\\footskip}
+\\addtolength{\\textheight}{-3cm}
+\\setlength{\\topmargin}{1.5cm}
+\\addtolength{\\topmargin}{-2.54cm}  
+\\input{/home/jnthn/Dropbox/seldon/macros.tex}  ")
+ '(package-selected-packages
+   '(scroll-restore good-scroll pdf-tools org-noter deft haskell-mode ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode)))
+>>>>>>> eacb20f78f84efd430999ff04da035abe5265c22
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -147,6 +172,12 @@
          nil
          nil)))
 
+(pixel-scroll-mode)
+(setq pixel-dead-time 0)
+(setq pixel-resolution-fine-flag t)
+(setq mouse-wheel-scroll-amount '(2))
+(setq mouse-wheel-progressive-speed nil)
+
 (defun my/org-mode-hook ()
 "Stop the org-level headers from increasing in height relative to the other text."
 (dolist (face '(org-level-1
@@ -244,6 +275,7 @@
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 (add-to-list 'org-latex-packages-alist '("" "siunitx" t))
 (add-to-list 'org-latex-packages-alist '("" "physics" t))
+(add-to-list 'org-latex-packages-alist '("" "mathrsfs" t))
 
 (setq font-latex-fontify-sectioning 'color)
 (setq font-latex-fontify-script nil)
