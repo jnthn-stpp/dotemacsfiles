@@ -22,7 +22,7 @@
  '(org-agenda-files
    '("~/Dropbox/notes/aqp/aqp.org" "~/Dropbox/notes/kahniashvili/kahniashvili.org" "~/Dropbox/notes/malt/malt.org" "~/Dropbox/notes/mech/mech.org" "~/Dropbox/notes/prob/prob.org" "~/Dropbox/notes/survey/survey.org" "~/Dropbox/notes/thermal/thermal.org" "~/Dropbox/notes/bullet.org"))
  '(package-selected-packages
-   '(scroll-restore good-scroll pdf-tools org-noter deft haskell-mode ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode)))
+   '(org-ref scroll-restore good-scroll pdf-tools org-noter deft haskell-mode ob-async yasnippet auctex org-mode evil-org solarized-theme evil-collection evil-indent-textobject solarized evil-leader evil-mode use-package evil-visual-mark-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
