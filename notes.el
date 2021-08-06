@@ -23,9 +23,12 @@
  (add-to-list 'org-latex-classes
       '("jdsnotes"
          "\\documentclass{jdsnotes}
-         [NO-DEFAULT-PACKAGES]
-         [PACKAGES]
-         [EXTRA]"
+[NO-DEFAULT-PACKAGES]
+\\usepackage{amssymb}
+\\usepackage{amsmath}
+\\usepackage{hyperref}
+[PACKAGES]
+[EXTRA]"
          ("\\section{%s}" . "\\section*{%s}")
          ("\\subsection{%s}" . "\\subsection*{%s}")
          ("\\subsubsection{%s}" . "\\subsubsection*{%s}")

@@ -22,13 +22,17 @@ x0 = np.arange(start, end, step)
 y0 = ${0}
 
 fig, ax = plt.subplots()
-ax.plot(x0, y0, "mediumseagreen", linewidth=2)
+ax.plot(x0, y0, "mediumseagreen", linewidth=2, label="y0")
    
 ax.set(xlabel=gxl, ylabel=gyl,title=g_title)
 ax.grid()
+ax.legend()
+
+ax.set_xlim(start,end)
 
 fig.savefig("figs/$1.png",dpi=300)
 #plt.show()
 #+END_SRC
 
+#+ATTR_ORG: :width 500
 [[file:figs/$1.png]]

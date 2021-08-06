@@ -74,6 +74,7 @@
 
   (setq org-startup-indented t)
   (setq org-list-allow-alphabetical t)
+  (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f"))
   (org-reload))
 
 (use-package org-bullets
@@ -103,6 +104,17 @@
       (setq org-noter-notes-window-location 'other-frame))
   (setq org-noter-kill-frame-at-session-end nil)
   (setq org-noter-always-create-frame nil))
+
+(use-package org-ref
+  :ensure t
+  :after org
+  :config
+
+  (require 'org-ref-arxiv)
+  (setq org-ref-bibliography-notes "~/Dropbox/notes/kahniashvili/kahniashvili.org"
+	org-ref-default-bibliography '("~/Dropbox/notes/kahniashvili/papers/ref.bib")
+	org-ref-pdf-directory "~/Dropbox/notes/kahniashvili/papers/")
+  )
 
 (defun my/no-op (&rest args))
 (advice-add 'org-noter--set-notes-scroll :override 'my/no-op)
@@ -162,7 +174,7 @@
 		org-level-3
 		org-level-4
 		org-level-5))
-(setq org-image-actual-width (/ (display-pixel-width) 3))
+(setq org-image-actual-width nil)
 (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
 
 (add-hook 'org-mode-hook 'my/org-mode-hook) 
@@ -247,7 +259,7 @@
 
 (if (equal system-name "landau") 
     (setq org-latex-create-formula-image-program 'imagemagick)
-    (nil))
+    nil)
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 (add-to-list 'org-latex-packages-alist '("" "siunitx" t))
