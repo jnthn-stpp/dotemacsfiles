@@ -1,6 +1,7 @@
 *
 !.gitignore
 !init.el
+!custom.el
 !emacs_init.org
 !notes.el
 !snippets/
