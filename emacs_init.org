@@ -340,6 +340,7 @@ Org Hook Configuration:
 #+end_src
 
 Windmove Collision Keybindings:
+
 #+begin_src emacs-lisp :noweb-ref windmove-org-keybinds :tangle no
   ;;org-mode conflicts with windmove
   (add-hook 'org-shiftup-final-hook 'windmove-up)

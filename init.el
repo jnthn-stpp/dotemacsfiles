@@ -251,17 +251,14 @@
                 org-level-5))
 (setq org-image-actual-width nil)
 (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
-(add-hook 'org-mode-hook
-          (lambda () (add-hook 'after-save-hook #'org-babel-tangle
-                          :append :local)))
-
+<<babel-auto-hook>>
 
 (add-hook 'org-mode-hook 'my/org-mode-hook) 
 (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
 ;;org-mode keybindings
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cc" 'org-capture)
+<<org-agenda-keybinds>>
+<<org-capture-keybinds>>
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c C-l") 'org-insert-link)
 
