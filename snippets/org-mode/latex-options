@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: latex-options
+# key: lo>
+# --
+
+#+attr_latex: :options [$1]
+$0

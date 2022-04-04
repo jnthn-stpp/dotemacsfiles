@@ -57,12 +57,14 @@
 
   (setq org-startup-indented t)
   (setq org-list-allow-alphabetical t)
+  (setq org-latex-prefer-user-labels t)
   (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -cd -pdf %f"))
   (org-reload))
 
 (use-package org-bullets
   :ensure t
-  :hook (org-mode . org-bullets-mode))
+  ;:hook (org-mode . org-bullets-mode)
+)
 
 (use-package evil-org
   :ensure t
@@ -82,7 +84,6 @@
   ;(add-to-list 'evil-overriding-maps '(org-noter-doc-mode))
 
   (setq org-noter-insert-note-no-questions t)
-  (setq org-noter-insert-note-no-questions t)
   (if (equal system-name "fermi")
       (setq org-noter-notes-window-location 'other-frame))
   (setq org-noter-kill-frame-at-session-end nil)
@@ -97,6 +98,7 @@
   (setq org-ref-bibliography-notes "~/Dropbox/notes/kahniashvili/kahniashvili.org"
         org-ref-default-bibliography '("~/Dropbox/notes/kahniashvili/papers/ref.bib")
         org-ref-pdf-directory "~/Dropbox/notes/kahniashvili/papers/")
+  (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link)
   )
 
 (defun my/no-op (&rest args))
@@ -170,14 +172,17 @@
                 org-level-5))
 (setq org-image-actual-width nil)
 (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
-<<babel-auto-hook>>
+(add-hook 'org-mode-hook
+          (lambda () (add-hook 'after-save-hook #'org-babel-tangle
+                          :append :local)))
+
 
 (add-hook 'org-mode-hook 'my/org-mode-hook) 
 (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
 ;;org-mode keybindings
-<<org-agenda-keybinds>>
-<<org-capture-keybinds>>
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c C-l") 'org-insert-link)
 
@@ -242,12 +247,13 @@
 )
 
 (use-package pdf-tools
-  :ensure t
+  :ensure f
   :after evil
   :config
   (evil-set-initial-state 'pdf-view-mode 'normal)
   (pdf-tools-install)
   (setq-default pdf-view-display-size 'fit-page))
+(add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
 
 (use-package yasnippet
   :ensure t
@@ -259,3 +265,4 @@
   (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
   (add-hook 'org-mode-hook 'yas-minor-mode)
 )
+(advice-add 'yas--auto-fill-wrapper :override #'ignore)
