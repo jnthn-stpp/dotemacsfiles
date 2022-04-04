@@ -58,11 +58,13 @@
   (setq org-startup-indented t)
   (setq org-list-allow-alphabetical t)
   (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -cd -pdf %f"))
+  (setq org-log-done t)
+  (setq org-log-into-drawer t)
   (org-reload))
 
-(use-package org-bullets
-  :ensure t
-  :hook (org-mode . org-bullets-mode))
+;(use-package org-bullets
+;  :ensure t
+;  :hook (org-mode . org-bullets-mode))
 
 (use-package evil-org
   :ensure t
@@ -116,17 +118,31 @@
                            (org-agenda-files :maxlevel . 4)
                            ))
 
-(setq org-agenda-files (directory-files-recursively "~/Dropbox/notes/" "\\.org$"))
+(setq org-agenda-files '("~/Dropbox/notes/bullet.org"))
 (setq org-default-notes-file "~/Dropbox/notes/bullet.org")
 
 (setq org-agenda-custom-commands
-      '(("c" . "My Custom Agendas")
-        ("cu" "Unscheduled TODO"
-         ((todo ""
-                ((org-agenda-overriding-header "\nUnscheduled TODO")
-                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled)))))
-         nil
-         nil)))
+      '(("g" . "GTD Views")
+        ("go" "GTD Overview"
+         ((agenda)
+          (todo "NEXT" ((org-agenda-overriding-header "Next Actions")
+                        (org-agenda-max-entries 100)))
+          (todo "WAIT" ((org-agenda-overriding-header "Waiting On")
+                        (org-agenda-max-entries 100)))
+          (tags "projects+LEVEL=2" ((org-agenda-overriding-header "Current Projects")
+                            (org-agenda-max-entries 100)))
+          ))
+        ("gn" "Next Actions"
+         ((agenda)
+          (todo "NEXT" ((org-agenda-overriding-header "Next Actions")
+                        (org-agenda-max-entries 100)))
+          ))
+        ("gw" "Waiting On"
+         ((agenda)
+          (todo "WAIT" ((org-agenda-overriding-header "Waiting On")
+                        (org-agenda-max-entries 100)))
+          ))
+        ))
 
 (defun my/capture-seldon-file-name ()
   (interactive)
@@ -150,6 +166,8 @@
 (setq font-latex-fontify-sectioning 'color)
 (setq font-latex-fontify-script nil)
 (setq font-tex-fontify-script nil)
+
+(setq org-latex-prefer-user-labels t) ; to make labels work if unique
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 (add-to-list 'org-latex-packages-alist '("" "siunitx" t))
