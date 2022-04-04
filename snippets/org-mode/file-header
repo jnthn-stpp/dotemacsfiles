@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: file-header
+# key: fh>
+# --
+
+#+INCLUDE: format/head.inc
+#+LaTeX_CLASS: per-file-class
+#+EXPORT_FILE_NAME: output/$1
+
+$0

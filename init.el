@@ -57,6 +57,7 @@
 
   (setq org-startup-indented t)
   (setq org-list-allow-alphabetical t)
+  (setq org-latex-prefer-user-labels t)
   (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -cd -pdf %f"))
   (setq org-log-done t)
   (setq org-log-into-drawer t)
@@ -84,7 +85,6 @@
   ;(add-to-list 'evil-overriding-maps '(org-noter-doc-mode))
 
   (setq org-noter-insert-note-no-questions t)
-  (setq org-noter-insert-note-no-questions t)
   (if (equal system-name "fermi")
       (setq org-noter-notes-window-location 'other-frame))
   (setq org-noter-kill-frame-at-session-end nil)
@@ -99,6 +99,7 @@
   (setq org-ref-bibliography-notes "~/Dropbox/notes/kahniashvili/kahniashvili.org"
         org-ref-default-bibliography '("~/Dropbox/notes/kahniashvili/papers/ref.bib")
         org-ref-pdf-directory "~/Dropbox/notes/kahniashvili/papers/")
+  (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link)
   )
 
 (defun my/no-op (&rest args))
@@ -263,12 +264,13 @@
 )
 
 (use-package pdf-tools
-  :ensure t
+  :ensure f
   :after evil
   :config
   (evil-set-initial-state 'pdf-view-mode 'normal)
   (pdf-tools-install)
   (setq-default pdf-view-display-size 'fit-page))
+(add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
 
 (use-package yasnippet
   :ensure t
@@ -280,3 +282,4 @@
   (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
   (add-hook 'org-mode-hook 'yas-minor-mode)
 )
+(advice-add 'yas--auto-fill-wrapper :override #'ignore)
